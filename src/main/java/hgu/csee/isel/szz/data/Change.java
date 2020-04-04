@@ -1,4 +1,4 @@
-package hgu.csee.isel.alinew.szz.bszz.data;
+package hgu.csee.isel.szz.data;
 
 public class Change {
 	String sha1;

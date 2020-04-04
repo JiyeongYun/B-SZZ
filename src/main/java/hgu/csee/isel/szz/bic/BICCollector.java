@@ -1,10 +1,10 @@
-package hgu.csee.isel.alinew.szz.bszz.bic;
+package hgu.csee.isel.szz.bic;
 
 import java.util.List;
 
 import org.eclipse.jgit.revwalk.RevCommit;
 
-import hgu.csee.isel.alinew.szz.bszz.data.CSVInfo;;
+import hgu.csee.isel.szz.data.CSVInfo;
 
 public interface BICCollector {
 

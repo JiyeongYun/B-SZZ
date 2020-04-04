@@ -1,4 +1,4 @@
-package hgu.csee.isel.alinew.szz.bszz.utils;
+package hgu.csee.isel.szz.utils;
 
 import java.io.File;
 import java.io.IOException;

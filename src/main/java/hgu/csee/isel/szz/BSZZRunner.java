@@ -1,4 +1,4 @@
-package hgu.csee.isel.alinew.szz.bszz;
+package hgu.csee.isel.szz;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,11 +23,13 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.treewalk.filter.PathSuffixFilter;
 import org.eclipse.jgit.util.io.DisabledOutputStream;
 
-import hgu.csee.isel.alinew.szz.bszz.bic.BICCollector;
-import hgu.csee.isel.alinew.szz.bszz.data.CSVInfo;
-import hgu.csee.isel.alinew.szz.bszz.data.BICInfo;
-import hgu.csee.isel.alinew.szz.bszz.data.DeletedLineInCommits;
-import hgu.csee.isel.alinew.szz.bszz.utils.Utils;
+import hgu.csee.isel.szz.bic.BICCollector;
+import hgu.csee.isel.szz.data.BICInfo;
+import hgu.csee.isel.szz.data.CSVInfo;
+import hgu.csee.isel.szz.data.DeletedLineInCommits;
+import hgu.csee.isel.szz.utils.Utils;
+
+
 
 public class BSZZRunner implements BICCollector {
 	private boolean unTrackDeletedBIlines = false;
