@@ -134,14 +134,12 @@ public class BSZZ {
 
 							for (int i = beginA; i < endA; i++)
 								lstIdxOfDeletedLinesInPrevFixFile.add(i);
-							
-							// get BI commit from lines in lstIdxOfOnlyInsteredLines
-							lstBIChanges.addAll(getBIChangesFromBILineIndices(repo, BFCSha1, rev, newPath, oldPath, prevFileSource, lstIdxOfDeletedLinesInPrevFixFile));
-
 						}
-
-						lstIdxOfDeletedLinesInPrevFixFile.clear();
 					}
+					
+					// get BI commit from lines in lstIdxOfOnlyInsteredLines
+					lstBIChanges.addAll(getBIChangesFromBILineIndices(repo, BFCSha1, rev, newPath, oldPath, prevFileSource, lstIdxOfDeletedLinesInPrevFixFile));
+					
 				}
 			}
 		}
