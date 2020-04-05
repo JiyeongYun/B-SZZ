@@ -1,129 +1,49 @@
 package hgu.csee.isel.szz.data;
 
-import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.diff.EditList;
-
-
-public class BICInfo implements Comparable<BICInfo>, CSVInfo {
-	public final static String[] headers = { "BISha1", "oldPath", "Path", "FixSha1", "BIDate", "FixDate", "LineNumInBI",
-			"LineNumInPreFix", "isAddedLine", "Line" };
-
-	@Override
-	public String[] getHeaders() {
-		return headers;
-	}
+public class BICInfo implements Comparable<BICInfo> {
 
 	String BISha1;
 	String biPath;
-	String path;
 	String FixSha1;
+	String path;
 	String BIDate;
 	String FixDate;
-	int lineNum; // line num in BI file
-	int lineNumInPrevFixRev; // line num in previous commit of the fix commit
-	boolean isAddedLine;
-	String line = "";
-	boolean isNoise;
-	Edit edit;
-	EditList editList;
+	int biLineIdx; // line idx in BI file
+	int lineIdxInPrevFixRev;
+	String BIContent = "";
+	String commiter;
+	String author;
 
-	String filteredDueTo;
-
-	public BICInfo() {
-	}
-
-	public BICInfo(String BISha1, String biPath, String FixSha1, String path, String BIDate, String FixDate,
-			int lineNum, int lineNumInPrevFixRev, String line, boolean isAddedLine) {
-		this.BISha1 = BISha1;
+	public BICInfo(String bISha1, String biPath, String fixSha1, String path, String bIDate, String fixDate,
+			int biLineIdx, int lineIdxInPrevFixRev, String bIContent, String commiter, String author) {
+		super();
+		BISha1 = bISha1;
 		this.biPath = biPath;
-		this.FixSha1 = FixSha1;
+		FixSha1 = fixSha1;
 		this.path = path;
-		this.BIDate = BIDate;
-		this.FixDate = FixDate;
-		this.lineNum = lineNum;
-		this.lineNumInPrevFixRev = lineNumInPrevFixRev;
-		this.line = line;
-		this.isAddedLine = isAddedLine;
-	}
-
-	public BICInfo(String changeInfo, boolean forSenitizer) {
-		String[] splitString = changeInfo.split("\t");
-
-		if (splitString.length == 2) {
-
-			BISha1 = splitString[0];
-			path = splitString[1];
-
-		} else {
-
-			BISha1 = splitString[0];
-			biPath = splitString[1];
-			path = splitString[2];
-			FixSha1 = splitString[3];
-			BIDate = splitString[4];
-			FixDate = splitString[5];
-			lineNum = Integer.parseInt(splitString[6]); // if applying Sanitizer, this will be line num in BI code.
-			if (!forSenitizer) {
-				lineNumInPrevFixRev = Integer.parseInt(splitString[7]); // lineNum in the prv. of fix revision.
-				isAddedLine = splitString[8].equals("t") || splitString[8].toLowerCase().equals("true") ? true : false;
-
-				// if raw line data contains tab, the line data is splitted. In this case,
-				// replace tab with 5 white spaces
-				for (int i = 9; i < splitString.length; i++)
-					line += splitString[i] + "     ";
-				line = line.trim();
-			} else {
-				lineNumInPrevFixRev = Integer.parseInt(splitString[6]); // lineNum in the prv. of fix revision.
-				isAddedLine = splitString[7].equals("t") || splitString[7].toLowerCase().equals("true") ? true : false;
-				line = splitString[8];
-			}
-		}
-
-		filteredDueTo = "";
-	}
-
-	public void setIsNoise(boolean isNoise) {
-		this.isNoise = isNoise;
-	}
-
-	public void setBIPath(String biPath) {
-		this.biPath = biPath;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public void setBIDate(String date) {
-		this.BIDate = date;
-	}
-
-	public void setFixDate(String date) {
-		this.FixDate = date;
-	}
-
-	public void setFilteredDueTo(String filterName) {
-		filteredDueTo = filterName;
-	}
-
-	public boolean isNoise() {
-		return isNoise;
+		BIDate = bIDate;
+		FixDate = fixDate;
+		this.biLineIdx = biLineIdx;
+		this.lineIdxInPrevFixRev = lineIdxInPrevFixRev;
+		BIContent = bIContent;
+		this.commiter = commiter;
+		this.author = author;
 	}
 
 	public String getBISha1() {
 		return BISha1;
 	}
 
-	public String getBIPath() {
+	public String getBiPath() {
 		return biPath;
-	}
-
-	public String getPath() {
-		return path;
 	}
 
 	public String getFixSha1() {
 		return FixSha1;
+	}
+
+	public String getPath() {
+		return path;
 	}
 
 	public String getBIDate() {
@@ -134,68 +54,24 @@ public class BICInfo implements Comparable<BICInfo>, CSVInfo {
 		return FixDate;
 	}
 
-	public int getLineNum() {
-		return lineNum;
+	public int getBiLineIdx() {
+		return biLineIdx;
 	}
 
-	public String getLine() {
-		return line;
+	public int getLineIdxInPrevFixRev() {
+		return lineIdxInPrevFixRev;
 	}
 
-	public boolean getIsAddedLine() {
-		return isAddedLine;
+	public String getBIContent() {
+		return BIContent;
 	}
 
-	public String getFilteredDueTo() {
-		return filteredDueTo;
+	public String getCommiter() {
+		return commiter;
 	}
 
-	public void setLineNum(Integer lineNum) {
-		this.lineNum = lineNum;
-	}
-
-	public void setEdit(Edit edit) {
-		this.edit = edit;
-	}
-
-	public void setEditList(EditList editListFromDiff) {
-		this.editList = editListFromDiff;
-	}
-
-	public Edit getEdit() {
-		return edit;
-	}
-
-	public EditList getEditListFromDiff() {
-		return editList;
-	}
-
-	public void setBISha1(String biSha1) {
-		BISha1 = biSha1;
-	}
-
-	public String toString() {
-		return getBISha1() + "\t" + getBIPath() + "\t" + getPath() + "\t" + getFixSha1() + "\t" + getIsAddedLine()
-				+ "\t" + getLineNum() + "\t" + getLine();
-	}
-
-	public String getRecord() {
-		return getBISha1() + "\t" + getBIPath() + "\t" + getPath() + "\t" + getFixSha1() + "\t" + getBIDate() + "\t"
-				+ getFixDate() + "\t" + getLineNum() + "\t" + getLineNumInPrevFixRev() + "\t" + getIsAddedLine() + "\t"
-				+ getLine();
-	}
-
-	public String getRecordWithoutLineNumInPrevFix() {
-		return getBISha1() + "\t" + getBIPath() + "\t" + getPath() + "\t" + getFixSha1() + "\t" + getBIDate() + "\t"
-				+ getFixDate() + "\t" + getLineNum() + "\t" + getIsAddedLine() + "\t" + getLine();
-	}
-
-	public int getLineNumInPrevFixRev() {
-		return lineNumInPrevFixRev;
-	}
-
-	public void setLineNumInPrevFixRev(int lineNum) {
-		lineNumInPrevFixRev = lineNum;
+	public String getAuthor() {
+		return author;
 	}
 
 	public boolean equals(BICInfo compareWith) {
@@ -211,16 +87,11 @@ public class BICInfo implements Comparable<BICInfo>, CSVInfo {
 			return false;
 		if (!FixDate.equals(compareWith.FixDate))
 			return false;
-		if (lineNum != compareWith.lineNum)
+		if (biLineIdx != compareWith.biLineIdx)
 			return false;
-		if (lineNumInPrevFixRev != compareWith.lineNumInPrevFixRev)
+		if (lineIdxInPrevFixRev != compareWith.lineIdxInPrevFixRev)
 			return false;
-		if (isAddedLine != compareWith.isAddedLine)
-			return false;
-		if (!line.equals(compareWith.line))
-			return false;
-		;
-		if (isNoise != compareWith.isNoise)
+		if (!BIContent.equals(compareWith.BIContent))
 			return false;
 
 		return true;
@@ -229,29 +100,53 @@ public class BICInfo implements Comparable<BICInfo>, CSVInfo {
 	@Override
 	public int compareTo(BICInfo o) {
 
-		// order by BIDate, path, FixDate, lineNum
-		if (BIDate.compareTo(o.BIDate) < 0)
+		// order by FixSha1, BISha1, BIContent, biLineIdx
+		if (FixSha1.compareTo(o.FixSha1) < 0)
 			return -1;
-		else if (BIDate.compareTo(o.BIDate) > 0)
+		else if (FixSha1.compareTo(o.FixSha1) > 0)
 			return 1;
 		else {
-			if (path.compareTo(o.path) < 0)
+			if (BISha1.compareTo(o.BISha1) < 0)
 				return -1;
-			else if (path.compareTo(o.path) > 0)
+			else if (BISha1.compareTo(o.BISha1) > 0)
 				return 1;
 			else {
-				if (FixDate.compareTo(o.FixDate) < 0)
+				if (BIContent.compareTo(o.BIContent) < 0)
 					return -1;
-				else if (FixDate.compareTo(o.FixDate) > 0)
+				else if (BIContent.compareTo(o.BIContent) > 0)
 					return 1;
 				else {
-					if (lineNum < o.lineNum)
+					if (biLineIdx < o.biLineIdx)
 						return -1;
-					else if (lineNum > o.lineNum)
+					else if (biLineIdx > o.biLineIdx)
 						return 1;
 				}
 			}
 		}
+
+		// order by BIDate, path, FixDate, lineNum
+//		if (BIDate.compareTo(o.BIDate) < 0)
+//			return -1;
+//		else if (BIDate.compareTo(o.BIDate) > 0)
+//			return 1;
+//		else {
+//			if (path.compareTo(o.path) < 0)
+//				return -1;
+//			else if (path.compareTo(o.path) > 0)
+//				return 1;
+//			else {
+//				if (FixDate.compareTo(o.FixDate) < 0)
+//					return -1;
+//				else if (FixDate.compareTo(o.FixDate) > 0)
+//					return 1;
+//				else {
+//					if (biLineIdx < o.biLineIdx)
+//						return -1;
+//					else if (biLineIdx > o.biLineIdx)
+//						return 1;
+//				}
+//			}
+//		}
 
 		return 0;
 	}
