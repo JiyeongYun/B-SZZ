@@ -83,7 +83,7 @@ public class BSZZRunner {
 		String header = "B-SZZ finds lines that introduce bug for given BFC.\n\n";
 		String footer = "\nPlease report issues at https://github.com/JiyeongYun/B-SZZ\n\n";
 
-		formatter.printHelp("AGSZZ", header, options, footer, true);
+		formatter.printHelp("BSZZ", header, options, footer, true);
 	}
 
 	private void run(String[] args) throws IOException {

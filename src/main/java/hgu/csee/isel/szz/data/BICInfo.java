@@ -9,13 +9,12 @@ public class BICInfo implements Comparable<BICInfo> {
 	String BIDate;
 	String FixDate;
 	int biLineIdx; // line idx in BI file
-	int lineIdxInPrevFixRev;
 	String BIContent = "";
 	String commiter;
 	String author;
 
 	public BICInfo(String bISha1, String biPath, String fixSha1, String path, String bIDate, String fixDate,
-			int biLineIdx, int lineIdxInPrevFixRev, String bIContent, String commiter, String author) {
+			int biLineIdx, String bIContent, String commiter, String author) {
 		super();
 		BISha1 = bISha1;
 		this.biPath = biPath;
@@ -24,7 +23,6 @@ public class BICInfo implements Comparable<BICInfo> {
 		BIDate = bIDate;
 		FixDate = fixDate;
 		this.biLineIdx = biLineIdx;
-		this.lineIdxInPrevFixRev = lineIdxInPrevFixRev;
 		BIContent = bIContent;
 		this.commiter = commiter;
 		this.author = author;
@@ -58,10 +56,6 @@ public class BICInfo implements Comparable<BICInfo> {
 		return biLineIdx;
 	}
 
-	public int getLineIdxInPrevFixRev() {
-		return lineIdxInPrevFixRev;
-	}
-
 	public String getBIContent() {
 		return BIContent;
 	}
@@ -88,8 +82,6 @@ public class BICInfo implements Comparable<BICInfo> {
 		if (!FixDate.equals(compareWith.FixDate))
 			return false;
 		if (biLineIdx != compareWith.biLineIdx)
-			return false;
-		if (lineIdxInPrevFixRev != compareWith.lineIdxInPrevFixRev)
 			return false;
 		if (!BIContent.equals(compareWith.BIContent))
 			return false;

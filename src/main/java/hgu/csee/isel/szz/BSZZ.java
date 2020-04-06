@@ -190,7 +190,6 @@ public class BSZZ {
 				String BIDate = Utils.getStringDateTimeFromCommit(commit);
 				String FixDate = Utils.getStringDateTimeFromCommit(fixCommit);
 				int BILineIdx = blame.getSourceLine(lineIndex);
-				int lineIdxInPrevFixRev = lineIndex;
 				String BIContent = prevFileSource.split("\n")[lineIndex].trim();
 				String commiter = blame.getSourceCommitter(lineIndex).getName();
 				String author = blame.getSourceAuthor(lineIndex).getName();
@@ -201,8 +200,9 @@ public class BSZZ {
 				// ignore empty line (this happens as comments are removed)
 				if (splitLinesSrc.length <= lineIndex || splitLinesSrc[lineIndex].trim().equals(""))
 					continue;
-
-				BICInfo biChange = new BICInfo(BISha1, biPath, FixSha1, path, BIDate, FixDate, BILineIdx, lineIdxInPrevFixRev, BIContent, commiter, author);
+				
+				BICInfo biChange = new BICInfo(BISha1, biPath, FixSha1, path, BIDate, FixDate, BILineIdx, BIContent, commiter, author);
+	
 				biChanges.add(biChange);
 			}
 

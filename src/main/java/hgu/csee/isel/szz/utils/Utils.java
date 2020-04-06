@@ -155,11 +155,11 @@ public class Utils {
 		FileWriter writer = new FileWriter(savedFile);
 
 		CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("BISha1", "BIPath", "FixSha1",
-				"BIDate", "FixDate", "biLineIdx", "PreFixLineIdx", "BIContent", "Commiter", "Author"));
+				"BIDate", "FixDate", "biLineIdx", "BIContent", "Commiter", "Author"));
 
 		for (BICInfo BICInfo : BICList) {
 			csvPrinter.printRecord(BICInfo.getBISha1(), BICInfo.getBiPath(), BICInfo.getFixSha1(), BICInfo.getBIDate(),
-									BICInfo.getFixDate(), BICInfo.getBiLineIdx(), BICInfo.getLineIdxInPrevFixRev(), BICInfo.getBIContent(), BICInfo.getCommiter(),BICInfo.getAuthor());
+									BICInfo.getFixDate(), BICInfo.getBiLineIdx(), BICInfo.getBIContent(), BICInfo.getCommiter(),BICInfo.getAuthor());
 		}
 
 		csvPrinter.close();
