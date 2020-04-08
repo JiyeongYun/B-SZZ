@@ -109,7 +109,7 @@ public class Utils {
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date commitDate = commit.getAuthorIdent().getWhen();
 
-		TimeZone GMT = commit.getCommitterIdent().getTimeZone();
+		TimeZone GMT = TimeZone.getTimeZone("GMT");
 		ft.setTimeZone(GMT);
 
 		return ft.format(commitDate);
